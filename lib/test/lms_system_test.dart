@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import '../service/lms_system.dart';
 
 void main() {
-  // ── Task 1: Courses ──────────────────────────────────────────────────────────
+  // Task 1: Courses
 
   group('courses', () {
     test('adds a course', () {
@@ -48,7 +48,7 @@ void main() {
     });
   });
 
-  // ── Task 2: Enrollment ───────────────────────────────────────────────────────
+  // Task 2: Enrollment
 
   group('students and enrollment', () {
     test('adds and removes a student', () {
@@ -96,7 +96,7 @@ void main() {
       );
     });
 
-    // ── Task 3: Remove from course ─────────────────────────────────────────────
+    // Task 3: Remove from course
 
     test('discards an enrollment and removes its results', () {
       final lms = _systemWithStudentAndCourse();
@@ -143,7 +143,7 @@ void main() {
     });
   });
 
-  // ── Task 4 & 5: Results ──────────────────────────────────────────────────────
+  // Task 4 & 5: Results
 
   group('results', () {
     test('adds a valid result', () {
@@ -226,7 +226,7 @@ void main() {
     });
   });
 
-  // ── FR5 full scenario ────────────────────────────────────────────────────────
+  // FR5 full scenario
 
   test('removing a student cleans all enrollments and results', () {
     final lms = LmsSystem();
@@ -250,10 +250,7 @@ void main() {
   });
 }
 
-// ── Test helper ──────────────────────────────────────────────────────────────
-
-// Creates a fresh LmsSystem already seeded with one student and one course,
-// so individual tests don't repeat the same setup boilerplate.
+// Test helper: to reduce boilerplate
 LmsSystem _systemWithStudentAndCourse() {
   final lms = LmsSystem();
   lms.addStudent(studentId: 'S1', studentName: 'Ronan');

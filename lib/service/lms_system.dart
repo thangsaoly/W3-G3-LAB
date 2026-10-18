@@ -7,9 +7,9 @@ class LmsSystem {
   final List<Course> courses = [];
   final List<CourseResult> results = [];
 
-  // ── Task 1: Courses ──────────────────────────────────────────────────────────
+  //Task 1: Courses 
 
-  // FR1 — Create a course with a unique id and a name.
+  // FR1: Create a course
   void addCourse(String courseId, String courseName) {
     if (_findCourseOrNull(courseId) != null) {
       throw Exception('Course $courseId already exists');
@@ -17,9 +17,7 @@ class LmsSystem {
     courses.add(Course(courseId, courseName));
   }
 
-  // FR1 — Remove a course.
-  // Policy: a course cannot be removed if students are enrolled or results exist,
-  // because that would leave dangling references in the system.
+  // FR1: Remove a course
   void removeCourse(String courseId) {
     final course = _findCourseOrNull(courseId);
     if (course == null) {
@@ -34,9 +32,8 @@ class LmsSystem {
     courses.remove(course);
   }
 
-  // ── Students ─────────────────────────────────────────────────────────────────
+  //Task 2: Add a student 
 
-  // Add a student with a unique id.
   void addStudent({required String studentId, required String studentName}) {
     if (_findStudentOrNull(studentId) != null) {
       throw Exception('Student $studentId already exists');
@@ -44,8 +41,7 @@ class LmsSystem {
     students.add(Student(id: studentId, name: studentName));
   }
 
-  // FR5 — Remove a student from the LMS.
-  // Cascade: also removes every enrollment and every result that belongs to them.
+  // FR5: Remove a student from the LMS
   void removeStudent({required String studentId}) {
     if (_findStudentOrNull(studentId) == null) {
       throw Exception('Student $studentId not found');
@@ -57,10 +53,10 @@ class LmsSystem {
     results.removeWhere((r) => r.studentId == studentId);
   }
 
-  // ── Task 2: Enrollment ───────────────────────────────────────────────────────
+  //Task 2: Enrollment
 
-  // FR2 — Enroll a student in a course.
-  // Preconditions: student exists, course exists, not already enrolled.
+  // FR2: Enroll a student in a course
+
   void enrollStudent({
     required String studentId,
     required String courseId,
@@ -78,10 +74,10 @@ class LmsSystem {
     course.studentIds.add(studentId);
   }
 
-  // ── Task 3: Remove from course ───────────────────────────────────────────────
+  //Task 3: Remove from course 
 
   // Remove a student from a specific course.
-  // Policy: also removes the student's results in that course to stay consistent.
+
   void discardStudentFromCourse({
     required String studentId,
     required String courseId,
@@ -103,11 +99,10 @@ class LmsSystem {
     );
   }
 
-  // ── Task 4: Results ──────────────────────────────────────────────────────────
+  //Task 4: Results 
 
-  // FR4 — Record a score for a student in a course.
-  // Preconditions: student exists, course exists, student is enrolled.
-  // Policy: score must be 0-100; only one result per student/course pair.
+  // FR4: Record a score for a student in a course.
+
   void addResult({
     required String studentId,
     required String courseId,
@@ -141,10 +136,8 @@ class LmsSystem {
     );
   }
 
-  // ── Task 5: Remove a result ──────────────────────────────────────────────────
+  //Task 5: Remove a result 
 
-  // Remove a result by its id.
-  // Does not affect the student, the course, or any other result.
   void removeResult({required String resultId}) {
     if (!results.any((r) => r.id == resultId)) {
       throw Exception('Result $resultId not found');
@@ -152,7 +145,7 @@ class LmsSystem {
     results.removeWhere((r) => r.id == resultId);
   }
 
-  // ── Private helpers ──────────────────────────────────────────────────────────
+  //Private helpers 
 
   Student? _findStudentOrNull(String studentId) {
     for (final s in students) {
